@@ -1,26 +1,85 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
+import { Image } from 'react-native';
 
 export default function TabsLayout() {
     return (
         <Tabs
             screenOptions={{
-                tabBarActiveTintColor: '#5A9BD5', // 活动标签的颜色（柔和的蓝色）
-                tabBarInactiveTintColor: '#FFFFFF', // 非活动标签的颜色（白色）
+                tabBarActiveTintColor: '#ffffff', // 活动标签为白色
+                tabBarInactiveTintColor: 'rgba(255, 255, 255, 0.6)', // 非活动标签为半透明白色
                 tabBarStyle: {
-                    backgroundColor: '#DCE6F1', // 标签栏的背景色（淡蓝色）
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)', // 深色半透明背景
+                    borderTopWidth: 1,
+                    borderTopColor: 'rgba(255, 255, 255, 0.1)',
+                    height: 60,
+                    paddingBottom: 8,
                 },
                 headerStyle: {
-                    backgroundColor: '#DCE6F1', // 标题栏的背景色（淡蓝色）
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)', // 深色半透明背景
+                    borderBottomWidth: 1,
+                    borderBottomColor: 'rgba(255, 255, 255, 0.1)',
+                    height: 60,
                 },
-                headerTintColor: '#5A9BD5', // 标题栏文字颜色（柔和的蓝色）
+                headerTintColor: '#ffffff', // 标题文字为白色
+                headerTitleStyle: {
+                    fontWeight: '600',
+                    fontSize: 18,
+                },
+                tabBarLabelStyle: {
+                    fontSize: 12,
+                    fontWeight: '500',
+                },
             }}
         >
-            <Tabs.Screen name="index"  options={{ title: '首页' }} />
-            <Tabs.Screen name="MyPlaylists"  options={{ title: '我的歌单' }} />
-            <Tabs.Screen name="DailyRecommendations"  options={{ title: '每日推荐' }} />
-            <Tabs.Screen name="PrivateFM"  options={{ title: '私人漫游' }} />
-            <Tabs.Screen name="Search"  options={{ title: '搜索' }} />
+            <Tabs.Screen 
+                name="index" 
+                options={{ 
+                    title: '首页',
+                    tabBarIcon: ({ color, size }) => (
+                        <Image 
+                            source={require('../images/home.png')} 
+                            style={{ width: size, height: size, tintColor: color }}
+                        />
+                    ),
+                }} 
+            />
+            <Tabs.Screen 
+                name="MyPlaylists" 
+                options={{ 
+                    title: '我的歌单',
+                    tabBarIcon: ({ color, size }) => (
+                        <Image 
+                            source={require('../images/playlist.png')} 
+                            style={{ width: size, height: size, tintColor: color }}
+                        />
+                    ),
+                }} 
+            />
+            <Tabs.Screen 
+                name="DailyRecommendations" 
+                options={{ 
+                    title: '每日推荐',
+                    tabBarIcon: ({ color, size }) => (
+                        <Image 
+                            source={require('../images/recommend.png')} 
+                            style={{ width: size, height: size, tintColor: color }}
+                        />
+                    ),
+                }} 
+            />
+            <Tabs.Screen 
+                name="Search" 
+                options={{ 
+                    title: '搜索',
+                    tabBarIcon: ({ color, size }) => (
+                        <Image 
+                            source={require('../images/search.png')} 
+                            style={{ width: size, height: size, tintColor: color }}
+                        />
+                    ),
+                }} 
+            />
         </Tabs>
     );
 }

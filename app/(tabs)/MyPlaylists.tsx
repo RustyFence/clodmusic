@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
 import axios from 'axios';
 import { apiUrl } from '../../config';
 import { useRouter } from 'expo-router';
 import withAuth from '../hoc/withAuth';
 import { storage } from '../../utils/storage';
-
+import CurrentTrackBar from '../components/CurrentTrackBar';
 function MyPlaylists() {
     const [playlists, setPlaylists] = useState([]);
     const router = useRouter();
@@ -47,58 +47,82 @@ function MyPlaylists() {
     );
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>我的歌单</Text>
-            <FlatList
-                data={playlists}
-                renderItem={renderPlaylistItem}
-                keyExtractor={(item) => item.id.toString()}
-                contentContainerStyle={styles.listContainer}
-            />
-        </View>
+        <ImageBackground 
+            source={require('../images/bg1.jpg')} 
+            style={styles.backgroundImage}
+        >
+            <View style={styles.container}>
+                <Text style={styles.title}>我的歌单</Text>
+                <FlatList
+                    data={playlists}
+                    renderItem={renderPlaylistItem}
+                    keyExtractor={(item) => item.id.toString()}
+                    contentContainerStyle={styles.listContainer}
+                />
+                <View style={styles.trackBar}>
+                    <CurrentTrackBar/>
+                </View>
+            </View>
+        </ImageBackground>
     );
 }
 
 const styles = StyleSheet.create({
+    backgroundImage: {
+        flex: 1,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+    },
     container: {
         flex: 1,
-        backgroundColor: '#DCE6F1',
+        backgroundColor: 'rgba(0,0,0,0.3)',
         padding: 20,
     },
+    trackBar: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+    },
     title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#5A9BD5',
+        fontSize: 28,
+        fontWeight: '600',
+        color: '#ffffff',
         marginBottom: 20,
+        textAlign: 'center',
     },
     listContainer: {
-        paddingBottom: 20,
+        paddingBottom: 80,
     },
     playlistItem: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
         padding: 15,
-        borderRadius: 5,
+        borderRadius: 12,
         marginBottom: 10,
+        borderWidth: 1,
+        borderColor: 'rgba(255, 255, 255, 0.2)',
     },
     coverImage: {
-        width: 50,
-        height: 50,
-        borderRadius: 5,
-        marginRight: 10,
+        width: 60,
+        height: 60,
+        borderRadius: 10,
+        marginRight: 15,
     },
     textContainer: {
         flex: 1,
     },
     playlistName: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#333',
+        fontSize: 16,
+        fontWeight: '500',
+        color: '#ffffff',
+        marginBottom: 6,
     },
     trackCount: {
         fontSize: 14,
-        color: '#666',
+        color: 'rgba(255, 255, 255, 0.7)',
     },
 });
 

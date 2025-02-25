@@ -18,7 +18,6 @@ function withAuth(Component: React.ComponentType<any>) {
         }, []);
 
         if (isLoggedIn === null) {
-            // 使用 <Text> 组件来显示加载指示器
             return <View><Text>Loading...</Text></View>;
         }
 
